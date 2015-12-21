@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>证明函数申明</title>
+	<script>
+	// #1
+	function isNimble () { return true; };
+	assert(typeof window.isNimble === "function","isNimble() defined");
+	assert(isNimble.name === "isNimble","isNimble has a name");
+	// #2
+	var canfly = function () { return true; };
+	assert(typeof window.canfly === "function","canfly() defined");
+	assert(canfly.name === "","canfly has no name");
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
