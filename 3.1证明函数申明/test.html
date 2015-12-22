@@ -4,6 +4,16 @@
 	<meta charset="UTF-8">
 	<title>证明函数申明</title>
 	<script>
+	(function(){
+		this.assert = function  (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+		};
+	})();
+	window.onload = function  () {
+	
 	// #1
 	function isNimble () { return true; };
 	assert(typeof window.isNimble === "function","isNimble() defined");
@@ -12,9 +22,34 @@
 	var canfly = function () { return true; };
 	assert(typeof window.canfly === "function","canfly() defined");
 	assert(canfly.name === "","canfly has no name");
+	window.isDeadly = function () { return true; };
+	assert(typeof window.isDeadly === "function","isDeadly() defined");
+	assert(isDeadly.name === "","isDeadly() 的name属性为空字符串");
+	function outer (){
+		assert(typeof inner === "function", "inner() in scope before declaration");
+		function inner () {};
+		assert(typeof inner === "function", "inner() in scope after declaration");
+		assert(window.inner === "function", "inner() is not global scope");
+	}
+
+	outer();
+	assert(window.inner === "function", "inner() still not in global scope");
+
+	window.wieldsSword = function swingsSword () { return true; };
+	assert(window.wieldsSword.name === "swingsSword", "wieldsSword's real name is swingsSword");
+	}
 	</script>
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
 </head>
 <body>
-	
+	<ul id="results"></ul>
 </body>
 </html>
