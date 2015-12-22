@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>function&method</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+	<script>
+	function creep () { return this };
+
+	assert(creep() === window, "Creeping in the window");
+	
+	var sneak = creep;
+	
+	assert(sneak() === window, "Sneaking in the window");
+	
+	var ninja1 = {
+		skulk : creep
+	};
+
+	assert(ninja1.skulk() === ninja1, "这时调用ninja1对象里面的skulk方法，返回的是ninja1");
+
+	var ninja2 = {
+		skulk : creep
+	};
+
+	assert(ninja2.skulk() === ninja2, "这时作为ninja2的方法（这种说法是错误的用于对比上面。因为creep并没有作为ninja的函数，而是新创建的skulk方法，虽然内容相同！！）调用时虽然还是skulk，但是返回的就是ninja2");
+
+
+
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>

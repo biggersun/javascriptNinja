@@ -3,17 +3,26 @@
 <head>
 	<meta charset="UTF-8">
 	<title>证明函数申明</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
 	<script>
-	(function(){
-		this.assert = function  (value, desc) {
+	 function assert (value, desc) {
 			var li = document.createElement("li");
 			li.className = value? "pass" : "fail";
 			li.appendChild(document.createTextNode(desc));
 			document.getElementById("results").appendChild(li);
 		};
-	})();
-	window.onload = function  () {
-	
 	// #1
 	function isNimble () { return true; };
 	assert(typeof window.isNimble === "function","isNimble() defined");
@@ -37,19 +46,6 @@
 
 	window.wieldsSword = function swingsSword () { return true; };
 	assert(window.wieldsSword.name === "swingsSword", "wieldsSword's real name is swingsSword");
-	}
 	</script>
-	<style>
-		#results li.pass{
-			color:green;
-		}
-		#results li.fail{
-			color:red;
-		}
-
-	</style>
-</head>
-<body>
-	<ul id="results"></ul>
 </body>
 </html>

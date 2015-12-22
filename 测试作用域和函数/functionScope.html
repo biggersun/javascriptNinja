@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>functionScope</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+	<script>
+	assert(true,"在outer()定义之前")
+	assert(typeof outer === "function", 
+		"outer is in scope");
+	assert(typeof inner === "function", 
+		"inner is in scope");
+	assert(typeof a === "number", 
+		"a is in scope");
+	assert(typeof b === "number", 
+		"b is in scope");
+	assert(typeof c === "number", 
+		"c is in scope");
+	function outer () {
+		assert(true,"在a定义之前")
+		assert(typeof outer === "function", 
+			"outer is in scope");
+		assert(typeof inner === "function", 
+			"inner is in scope");
+		assert(typeof a === "number", 
+			"a is in scope");
+		assert(typeof b === "number", 
+			"b is in scope");
+		assert(typeof c === "number", 
+		"c is in scope");
+		var a = 1;
+		assert(true,"在a定义之后")
+		assert(typeof outer === "function", 
+			"outer is in scope");
+		assert(typeof inner === "function", 
+			"inner is in scope");
+		assert(typeof a === "number", 
+			"a is in scope");
+		assert(typeof b === "number", 
+			"b is in scope");
+		assert(typeof c === "number", 
+		"c is in scope");
+		function inner () {
+			return true;
+		}
+		var b = 2;
+		assert(true,"在b定义之后")
+		assert(typeof outer === "function", 
+			"outer is in scope");
+		assert(typeof inner === "function", 
+			"inner is in scope");
+		assert(typeof a === "number", 
+			"a is in scope");
+		assert(typeof b === "number", 
+			"b is in scope");
+		assert(typeof c === "number", 
+		"c is in scope");
+		if (a == 1) {
+			var c = 3;
+			assert(true,"在c定义之后")
+			assert(typeof outer === "function", 
+				"outer is in scope");
+			assert(typeof inner === "function", 
+				"inner is in scope");
+			assert(typeof a === "number", 
+				"a is in scope");
+			assert(typeof b === "number", 
+				"b is in scope");
+			assert(typeof c === "number", 
+			"c is in scope");
+		}
+	}
+	assert(true,"在outer声明之后的全局作用域，运行outer（）之前")
+		assert(typeof outer === "function", 
+			"outer is in scope");
+		assert(typeof inner === "function", 
+			"inner is in scope");
+		assert(typeof a === "number", 
+			"a is in scope");
+		assert(typeof b === "number", 
+			"b is in scope");
+		assert(typeof c === "number", 
+		"c is in scope");
+	outer();
+	assert(true,"在运行outer（）之后")
+		assert(typeof outer === "function", 
+			"outer is in scope");
+		assert(typeof inner === "function", 
+			"inner is in scope");
+		assert(typeof a === "number", 
+			"a is in scope");
+		assert(typeof b === "number", 
+			"b is in scope");
+		assert(typeof c === "number", 
+		"c is in scope");
+	assert(true," ");	
+	assert(true," ");
+	assert(true," ");
+	assert(true,"函数可以提前引用但是变量不行！！！！");
+	assert(true,"变量声明的作用域开始于声明的地方，终结于所在函数的结尾，而不是代码块结束的地方！！！");
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>
