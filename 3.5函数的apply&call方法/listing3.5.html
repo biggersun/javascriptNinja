@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>listing3.5</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+	<script>
+		function juggle () {
+			var result = 0;
+			for(var n = 0; n<arguments.length; n++){
+				result += arguments[n];
+			}
+			this.result = result;                //作用域的问题
+		}
+		var ninja1 = {};
+		var ninja2 = {};
+		juggle.apply(ninja1, [1,2,3,4]);      //指定函数上下文
+		juggle.call(ninja2,1,2,3,4);
+		assert(ninja1.result === 10,"juggled via apply");
+		assert(ninja2.result === 10,"juggled via call");
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>

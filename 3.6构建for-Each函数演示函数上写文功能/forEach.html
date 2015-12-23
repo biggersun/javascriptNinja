@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>forEach</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+	<script>
+		function forEach (list,callback) {
+			for (var i = 0; i < list.length; i++) {
+				callback.call(list[i],i);
+			}
+		}
+		var weapons = ['shuriken','katana','nunchurks'];
+
+		forEach(weapons,
+			function (index) {
+				assert(this == weapons[index],"Got the expected value of" + weapons[index])
+			});
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>

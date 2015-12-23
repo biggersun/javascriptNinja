@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>listing3.4</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+	<script>
+		function Ninja () {               //构造器的name首字母大写
+			this.skulk = function  () {
+				return this;
+			};
+		}
+		var Ninja1 = new Ninja();
+		var Ninja2 = new Ninja();
+		assert(Ninja1.skulk() === Ninja1,
+			"The first ninja is skulking");
+		assert(Ninja2.skulk() === Ninja2,
+			"The second ninja is skulking");
+
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>
