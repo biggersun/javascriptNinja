@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>function&method</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+	<script>
+		var ninja ={ 
+			chirp : function signal(n){
+					return n > 1 ? signal(n-1) + "-chirp" : "chirp";
+				}
+			}			
+
+		assert(ninja.chirp(3) == "chirp-chirp-chirp",
+			"Works as wo would expect it to!" + ninja.chirp(3)
+			);
+
+		var samurai ={
+		 	chirp : ninja.chirp 
+		};
+		ninja = {};
+		assert(samurai.chirp(3) == "chirp-chirp-chirp","The method correctly calls itself" +
+			samurai.chirp(3)
+			);
+
+		assert(true,"上面的结果看上去很好，一般不会出现问题，但是我们还是要搞清楚内联命名函数的名称的作用域");
+
+		var ninja2 = function myNinja () {
+			assert(ninja2 == myNinja,"This function id named two things at once!");
+		}
+		ninja2();
+		assert(typeof myNinja == "undefined","But myNinja isn't defined outside of the function")
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>
