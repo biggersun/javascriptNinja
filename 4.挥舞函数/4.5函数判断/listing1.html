@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>for arguments</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+
+	<script>
+	function isFunction (fn) {
+		return Object.prototype.toString.call(fn);
+	}
+	function isFunction2 (fn) {
+		return fn.toString();
+	}
+
+	function a () {
+		return this;
+	}
+	var b = {
+		c:function () {
+			return this;
+		}
+	}
+	assert(isFunction(a),isFunction(a));
+	assert(isFunction(b),isFunction(b));
+	assert(isFunction2(a),isFunction2(a));
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>
