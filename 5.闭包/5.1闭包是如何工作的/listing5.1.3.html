@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>for arguments</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+
+	<script>
+	var outerValue = 'ninja';
+	var later;
+	function outerFunction () {
+		var innerValue = 'samurai';
+		function innerFunction (paramValue) {
+			assert(outerValue,'Inner can see the ninja');
+			assert(innerValue,'Inner can see the samurai');
+			assert(paramValue,'Inner can see the wakizashi');
+			assert(tooLate,'Inner can see the ronin');
+		}
+
+		later = innerFunction;
+	}
+	assert(tooLate,"Outer can't see the ronin");
+	
+	outerFunction();
+	later("wakizashi");
+	var tooLate = "ronin";	
+	later("wakizashi");
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>
