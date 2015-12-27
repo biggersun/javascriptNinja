@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>listing</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+
+	<script>
+	 function smallest (array) {
+	 	return Math.min.apply(Math, array);
+	 }
+	 function largest (array) {
+	 	return Math.max.apply(Math, array);
+	 }
+	 assert(smallest([1,2,3,6]) == 1,"located the smallest value");
+	 assert(largest([1,2,3,6]) == 6,"located the largest value");
+	 assert(true,"关于函数上下文的绑定，不一定非要是Math，至于apply和call是作为希望自由绑定上下文而存在的，详细见3.3.5 函数的四种调用方法")
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>

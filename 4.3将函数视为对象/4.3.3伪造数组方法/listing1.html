@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>listing</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<input type="text" id="first"><input type="text" id="second">
+	<ul id="results"></ul>
+
+	<script>
+	var elems = {
+		length : 0,
+		add : function (elem) {
+			Array.prototype.push.call(this,elem);
+		},
+		gather : function (id) {
+			this.add(document.getElementById(id));
+		}
+	};
+	elems.gather("first");
+	assert(elems.length == 1 && elems[0].nodeType,"传进去一个元素");
+	elems.gather("second");
+	assert(elems.length == 2 && elems[1].nodeType,"第二个元素传进去了")
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>for arguments</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+
+	<script>
+	 	function merge (root) {
+	 		for (var i = 0; i < arguments.length; i++) {
+	 			console.log(arguments.length);
+	 			for (var key in arguments[i]) {
+	 				console.log("1");
+	 				root[key] = arguments[i][key];
+	 			};
+	 		};
+	 		return root;
+	 	}
+	 	var merged = merge(
+	 		{name : "Batou",what : "Niihama"},
+	 		{city : "Niihama"}
+	 		);
+	 	assert(merged.name == "Batou", "The original name is intact");
+	 	assert(merged.city == "Niihama","And the city has been capied over");
+	 	assert(true,merged.root);
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>
