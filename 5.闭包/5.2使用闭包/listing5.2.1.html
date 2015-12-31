@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包模拟私有变量</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+
+	<script>
+	function Ninja () {
+		var feints =  0;
+		this.getFeints = function () {
+			return feints;
+		};
+		this.feint = function () {
+			feints++;
+		};
+	}
+
+	var ninja = new Ninja();
+	ninja.feint();
+	assert(ninja.getFeints() == 1,"ok");
+	assert(ninja.feints === undefined,"And the private data is inaccessible to us");
+
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>

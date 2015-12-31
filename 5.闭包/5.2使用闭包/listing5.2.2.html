@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax请求的callback里使用闭包</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+	<div id="testSubject"></div>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<button type="button" id="testButton">Go!</button>
+	<script>
+	$('#testButton').click(function () {
+		var elme$ = $('testSubject');
+		elme$.html("loading.....");
+		jQuery.ajax({
+			url: "test.html",
+			success: function (html) {
+				assert(elme$,"We can see elme$,via the closure for this callback.");
+				elme$.html(html);
+			}
+		});
+	});
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	// #1
+	
+	</script>
+</body>
+</html>

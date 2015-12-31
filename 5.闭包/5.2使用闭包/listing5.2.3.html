@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>计时器的callback里使用闭包</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+		#box{
+			position:relative;
+			top:200px;
+			width:100px;
+			height:100px;
+			background-color:red;
+
+		}
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+	<div id="box"></div>
+	<button type="button" id="testButton">Go!</button>	
+	<script>
+	function animateIt (elementId) {
+		var elem = document.getElementById(elementId);
+		var tick = 0;
+		var timer = setInterval(function () {
+			if (tick < 100) {
+				elem.style.left = elem.style.top = tick + "px";
+				tick++;
+			}else {
+				clearInterval(timer);
+				assert(tick == 100,"Tick accessed via a closure");
+				assert(elem,elem);
+				timer = isWhat(timer);
+				assert(timer,timer);
+			};
+		},10);
+
+	}
+	animateIt('box');
+	
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	function isWhat (elem) {
+		return Object.prototype.toString.call(elem);
+	}
+	// #1
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>给函数绑定一个特定的上下文</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+	<button type="button" id="testButton">Go1!</button>
+	<button type="button" id="testButton2">Go2!</button>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	
+	<script>
+	var button = {
+		clicked: false,
+		click: function () {
+			this.clicked = true;
+			assert(button.clicked,"The button has been clicked.");
+			console.log(this);
+		}
+	}
+	var elem = document.getElementById('testButton');
+	elem.addEventListener("click",button.click,false);
+	assert(true,"断言1不会通过，因为事件处理程序默认会绑定在事件的目标元素上而不是在button对象上。");
+	assert(true,"这时就需要用到闭包来强行绑定特定的上下文：");
+	function bind (context,name) {
+		return function () {
+			return context[name].apply(context,arguments);
+		}
+	}
+	var elem2 = document.getElementById("testButton2");
+	elem2.addEventListener("click",bind(button,"click"),false);
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	function isWhat (elem) {
+		return Object.prototype.toString.call(elem);
+	}
+	// #1
+	
+	</script>
+</body>
+</html>
