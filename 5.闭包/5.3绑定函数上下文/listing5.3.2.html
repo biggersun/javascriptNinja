@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Prototype里的bind()代码</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+	
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	
+	<script>
+	Function.prototype.bind = function () {
+		// var arr = [1,23,3];
+		// arrg = arr.slice();
+		// console.log(arrg);
+		var fn = this,
+		args = Array.prototype.slice.call(arguments),//获取arguments对象
+		object = args.shift();
+		console.log(args.length);
+		// console.log(arguments);
+		// console.log(object);
+		var arg = args.concat(Array.prototype.slice.call(arguments));
+		console.log(arg.length);
+		// assert(args.length*2 === arg.length,"ok");
+		
+		return function () {
+			return fn.apply(object, args.concat(Array.prototype.slice.call(arguments)));//?????
+		};
+	};
+	var myObject = {sos:"awsdasd"};
+	function myFunction () {
+		return this == myObject;
+	}
+	assert(myFunction(),"Context id not set yet");
+	var aFunction = myFunction.bind(myObject);
+	assert(myFunction,"Context is set properly");
+
+	// ========================
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	function isWhat (elem) {
+		return Object.prototype.toString.call(elem);
+	}
+	// #1
+	
+	</script>
+</body>
+</html>
