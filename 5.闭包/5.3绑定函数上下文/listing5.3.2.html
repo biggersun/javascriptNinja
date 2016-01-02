@@ -34,7 +34,7 @@
 		// assert(args.length*2 === arg.length,"ok");
 		
 		return function () {
-			return fn.apply(object, args.concat(Array.prototype.slice.call(arguments)));//?????
+			return fn.apply(object, args.concat(Array.prototype.slice.call(arguments)));//?????currying化
 		};
 	};
 	var myObject = {sos:"awsdasd"};

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原生函数上进行分布参数应用</title>
+	
+	<style>
+		#results li.pass{
+			color:green;
+		}
+		#results li.fail{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+	<ul id="results"></ul>
+	
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	
+	<script>
+	
+	Function.prototype.partail = function () {
+		var fn = this,args = Array.prototype.slice.call(arguments);
+		return function () {
+			var arg = 0;
+			for (var i = 0; i < args.length && arg < arguments.length; i++) {
+				if (args[i] === undefined) {
+					args[i] = arguments[arg++];
+				}
+			}
+			return fn.apply(this,args);
+		};
+	};
+	String.prototype.csv = String.prototype.split.partail(/,\s*/);
+	var results = ("Mugan,Jin,Fuu").csv();
+	assert(results[0] == "Mugan" && results[1] == "Jin" && results[2] == "Fuu",
+		"The text values were split properly");
+	//currying化实例
+	// Function,prototype.curry = function () {
+	// 	var fn = this,args = Array.prototype.slice.call(arguments);	
+	// 	return function () {
+	// 		return fn.apply(this,args.concat(Array.prototype.slice.call(arguments)));
+	// 	}
+	// };
+	// ========================
+
+	 function assert (value, desc) {
+			var li = document.createElement("li");
+			li.className = value? "pass" : "fail";
+			li.appendChild(document.createTextNode(desc));
+			document.getElementById("results").appendChild(li);
+	};
+	function isWhat (elem) {
+		return Object.prototype.toString.call(elem);
+	}
+	// #1
+	
+	</script>
+</body>
+</html>
